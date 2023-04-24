@@ -1,0 +1,12 @@
+.form-contain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.reg-form{
+    border: 1px solid black;
+    padding: 8px;
+    width: 30%;
+}
