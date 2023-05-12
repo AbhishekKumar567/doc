@@ -17,6 +17,6 @@ module.exports = async (req,res,next) =>{
     })
   }
   catch(error){
-    res.status(401).json({message:"auth failed",success:false})
+    res.status(401).json({message:"auths failed",success:false})
   }
 }

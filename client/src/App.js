@@ -15,6 +15,8 @@ import Users from './pages/admin/Users';
 import Doctors from './pages/admin/Doctors';
 import Profile from './pages/doctor/Profile';
 import BookingPage from './pages/BookingPage';
+import Appointments from './pages/Appointments';
+import DoctorAppointments from './pages/doctor/DoctorAppointments';
 
 function App() {
 
@@ -28,12 +30,6 @@ function App() {
         ) :
           (
             <Routes>
-              <Route path="/"
-                element=
-                {
-                  <ProtectedRoute><Home /></ProtectedRoute>
-                }
-              />
 
               <Route path="/apply-doctor"
                 element=
@@ -79,7 +75,15 @@ function App() {
 
               <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
               <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-              <Route path="/layout" element={<Layout />} />
+              <Route path="/appointments" element={<ProtectedRoute><Appointments /></ProtectedRoute>} />
+              <Route path="/doctor-appointments" element={<ProtectedRoute><DoctorAppointments /></ProtectedRoute>} />
+              <Route path="/"
+                element=
+                {
+                  <ProtectedRoute><Home /></ProtectedRoute>
+                }
+              />
+              
             </Routes>
           )
         }

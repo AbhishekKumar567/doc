@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import { Layout } from '../components/Layout'
+import { Row } from 'antd'
 import DoctorList from '../components/DoctorList'
 
 //token:localStorage.getItem("token")
@@ -9,7 +10,7 @@ const URL = "http://localhost:4000"
 
 const Home = () => {
 
-  const[doctors,setDoctors] = useState([])
+  const [doctors,setDoctors] = useState([])
 
   const getUser = async () =>{
    
@@ -17,9 +18,10 @@ const Home = () => {
     const res = await axios.get(`${URL}/api/v1/user/getAllDoctors`,
     {
       headers:{
-      Authorization : "Bearer" + localStorage.getItem('token')
-    }
+      Authorization : `Bearer ${localStorage.getItem('token')}`,
+      },
     })
+    console.log(res.data)
 
     if(res.data.success)
     {
@@ -39,11 +41,7 @@ getUser()
     <Layout>
      <h1 className='text-center'>Home</h1>
      <Row>
-      {
-        doctors && doctors.map(doctor => (
-          <DoctorList doctor={doctor}/>
-        ))
-      }
+     {doctors && doctors.map((doctor) => <DoctorList doctor={doctor} />)}
      </Row>
     </Layout>
   )

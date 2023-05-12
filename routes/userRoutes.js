@@ -1,5 +1,5 @@
 const express = require("express")
-const { loginController, registerController,authController, applyDoctorController, getAllNotificationController,deleteAllNotificationController, getAllDoctorsController, bookAppointmentController, bookingAvailabilityController } = require("../controllers/userController")
+const { loginController, registerController,authController, applyDoctorController, getAllNotificationController,deleteAllNotificationController, getAllDoctorsController, bookAppointmentController, bookingAvailabilityController, userAppointmentsController } = require("../controllers/userController")
 const auth = require("../middlewares/auth")
 
 const router = express.Router()
@@ -25,6 +25,8 @@ router.get('/getAllDoctors',auth,getAllDoctorsController)
 router.post('/book-appointment',auth,bookAppointmentController)
 
 router.post("/booking-availability",auth, bookingAvailabilityController)
+
+router.get("/user-appointments",auth,userAppointmentsController)
 
 module.exports = router
 

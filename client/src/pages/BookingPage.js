@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Layout } from '../components/Layout'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { DatePicker, TimePicker } from 'antd'
+import { DatePicker, TimePicker, message } from 'antd'
 import moment from 'moment'
 import { hideLoader, showLoader } from '../redux/slices/alertSlice'
 import { useSelector, useDispatch } from "react-redux";
@@ -10,9 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 const URL = "http://localhost:4000"
 
 const BookingPage = () => {
-
+  const { user } = useSelector((state) => state.user)
     const params = useParams()
-
+    const dispatch = useDispatch()
     const [doctors, setDoctors] = useState([])
     const [date,setDate] = useState("")
     const [time,setTime] = useState("")
@@ -27,8 +27,8 @@ const BookingPage = () => {
                 },
                 {
                     headers: {
-                        Authorization: "Bearer" + localStorage.getItem('token')
-                    }
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
                 })
 
             if (res.data.success) {
@@ -62,7 +62,7 @@ const BookingPage = () => {
             message.error(res.data.message);
           }
         } catch (error) {
-          dispatch(hideLoading());
+          dispatch(hideLoader());
           console.log(error);
         }
       };
@@ -72,7 +72,7 @@ const BookingPage = () => {
         try {
             setIsAvailable(true);
             if (!date && !time) {
-              return alert("Date & Time Required");
+             return alert("Date & Time Required");
             }
           dispatch(showLoader());
           const res = await axios.post(
@@ -117,7 +117,8 @@ const BookingPage = () => {
                  {doctors.firstName} {doctors.lastName}
                 </h4>
                 <h4>Fees : {doctors.fees} </h4>
-                <h4>Timings: {doctors.timings[0]} {doctors.timings[1]}</h4>
+                Timings : {doctors.timings && doctors.timings[0]} -{" "}
+              {doctors.timings && doctors.timings[1]}{" "}
                 <div class='d=flex flex-column w-50'>
                  <DatePicker format="DD-MM-YYYY" onChange={(value) => setDate(moment(value).format("DD-MM-YYYY"))}/>
 
@@ -136,3 +137,5 @@ const BookingPage = () => {
 }
 
 export default BookingPage
+
+//<h4>Timings: {doctors.timings[0]} {doctors.timings[1]}</h4>
